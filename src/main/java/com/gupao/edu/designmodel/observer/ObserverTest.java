@@ -10,7 +10,7 @@ public class ObserverTest {
         //创建观察者（老师）
         Teacher tom = new Teacher("Tom");
         Question question = new Question();
-        question.setName("耿术强");
+        question.setName("李恒杰");
         question.setContent("请问观察者模式与适配器模式的区别在哪里？");
 
         Teacher king = new Teacher("King");
