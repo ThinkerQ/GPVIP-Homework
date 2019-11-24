@@ -12,6 +12,6 @@ public class HelloWorldController {
     @RequestMapping("/{id}")
     @ResponseBody
     public String hello(@PathVariable String id){
-        return "hello world" + id;
+        return "hello world:" + id;
     }
 }
