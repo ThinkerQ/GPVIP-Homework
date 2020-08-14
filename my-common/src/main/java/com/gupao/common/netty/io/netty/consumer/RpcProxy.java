@@ -96,8 +96,8 @@ public class RpcProxy {
                     });
 
             try {
-                log.info("===rpcInvocker 启动远程连接 localhost:8080》》》》》》》");
-                ChannelFuture future = client.connect("localhost", 8080).sync();
+                log.info("===rpcInvocker 启动远程连接 localhost:8081》》》》》》》");
+                ChannelFuture future = client.connect("127.0.0.1", 8081).sync();
                 //使用channel将协议内容写入且刷新之后，服务端会接收到com.gupao.common.netty.io.netty.register.RegistryHandler.channelRead 进行处理
                 future.channel().writeAndFlush(protocol).sync();
                 future.channel().closeFuture().sync();

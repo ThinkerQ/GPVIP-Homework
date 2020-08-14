@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Data
 public class InvockerProtocol implements Serializable {
 
-    //服务名
+    //服务名(ei)
     private String className;
 
     //方法名
