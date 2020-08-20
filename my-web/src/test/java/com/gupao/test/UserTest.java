@@ -7,6 +7,10 @@ import com.gupao.module.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: GengGhuQiang
@@ -17,20 +21,25 @@ public class UserTest extends BaseTest {
     @Autowired
     private UserService userService;
 
+    @Rollback(value = false)
     @Test
     public void addUser(){
 
-        UserInnodb user1 = new UserInnodb();
-        user1.setId(1);
-        userService.updateSelective(user1);
-        System.out.println("=====end");
-        /*for (int i = 0; i < 2; i++) {
+        int num = 1000000;
+        List<UserInnodb> userList = new ArrayList<>(num);
+        for (int i = 0; i < num; i++) {
             UserInnodb user = new UserInnodb();
             user.setName(NameUtil.getRandomName(i));
-            user.setPhone("18211674995");
+            user.setPhone(NameUtil.getTel());
             user.setGender(i%2 == 0);
-            userService.insertSelective(user);
-        }*/
+            userList.add(user);
+            if(i != 0 && i%10000 == 0){
+                System.out.println("====插入批次："+i/10000);
+                userService.insertBatch(userList);
+                userList = new ArrayList<>();
+            }
+        }
 
+        System.out.println("=====end");
     }
 }

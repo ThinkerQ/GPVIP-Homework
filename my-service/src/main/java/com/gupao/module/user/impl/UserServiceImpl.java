@@ -8,6 +8,8 @@ import com.gupao.module.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author: GengGhuQiang
  * @Date: 2020/8/18
@@ -20,5 +22,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserInnodb> implements User
     @Override
     protected BaseMapper<UserInnodb> getBaseMapper() {
         return userInnodbMapper;
+    }
+
+    @Override
+    public void insertBatch(List<UserInnodb> userList) {
+        userInnodbMapper.insertBatch(userList);
     }
 }

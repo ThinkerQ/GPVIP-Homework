@@ -199,6 +199,101 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <build.profile>dev</build.profile>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!--debug profile和dev包内容一致,同一批配置文件，只是配置文件打到tar包，而不是jar包-->
+        <profile>
+            <id>debug</id>
+            <properties>
+                <build.profile>debug</build.profile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>ci</id>
+            <properties>
+                <build.profile>ci</build.profile>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>st</id>
+            <properties>
+                <build.profile>st</build.profile>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/${build.profile}</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <includes>
+                            <include>**/*.txt</include>
+                            <include>**/*.xml</include>
+                            <include>**/*.xlsx</include>
+                            <include>i18n/*</include>
+                            <include>ValidationMessages*.properties</include>
+                        </includes>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>ga</id>
+            <properties>
+                <build.profile>ga</build.profile>
+            </properties>
+        </profile>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <build.profile>docker</build.profile>
+            </properties>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/${build.profile}</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <includes>
+                            <include>**/*.properties</include>
+                            <include>**/*.txt</include>
+                            <include>**/*.xml</include>
+                            <include>**/*.xlsx</include>
+                            <include>i18n/*</include>
+                            <include>ValidationMessages*.properties</include>
+                        </includes>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+    </profiles>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -215,5 +310,28 @@
                 <version>${surefire.version}</version>
             </plugin>
         </plugins>
+
+        <defaultGoal>package</defaultGoal>
+        <finalName>${project.name}</finalName>
+        <outputDirectory>target/classes</outputDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources/${build.profile}</directory>
+                <excludes>
+                    <exclude>*.yml</exclude>
+                    <exclude>*.xml</exclude>
+                    <exclude>*.properties</exclude>
+                </excludes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.txt</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 </project>

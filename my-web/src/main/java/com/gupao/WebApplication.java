@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication(scanBasePackages = {"com.gupao"})
 @ComponentScan(basePackages = {"com.gupao"})
+@MapperScan("com.gupao.dao")
 @Cacheable
 @ServletComponentScan
 public class WebApplication {
