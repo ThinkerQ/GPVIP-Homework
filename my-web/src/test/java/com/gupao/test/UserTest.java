@@ -23,6 +23,16 @@ public class UserTest extends BaseTest {
 
     @Rollback(value = false)
     @Test
+    public void updateUser(){
+        UserInnodb innodb = new UserInnodb();
+        innodb.setId(1000001);
+        innodb.setName("耿术强2");
+        final int test = userService.updateTest(innodb);
+        log.info("===test={}",test);
+    }
+
+    @Rollback(value = false)
+    @Test
     public void addUser(){
 
         int num = 1000000;

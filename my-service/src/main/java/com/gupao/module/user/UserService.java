@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface UserService extends BaseService<UserInnodb> {
     void insertBatch(List<UserInnodb> userList);
+
+    int updateTest(UserInnodb innodb);
 }
