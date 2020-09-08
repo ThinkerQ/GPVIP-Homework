@@ -10,4 +10,10 @@ import lombok.Data;
 public class Person {
 
     private String name;
+
+    public static void main(String[] args) {
+        System.out.println(Math.ceil(1.5));
+        System.out.println(Math.round(-1.5));
+        System.out.println(Math.round(1.5));
+    }
 }

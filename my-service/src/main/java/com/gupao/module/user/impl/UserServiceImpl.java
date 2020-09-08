@@ -41,18 +41,18 @@ public class UserServiceImpl extends BaseServiceImpl<UserInnodb> implements User
     @Override
     public int updateTest(UserInnodb innodb) {
         //没有事物的方法调用另一个类中的事物方法b(),b方法抛出异常，会正常回滚,因为b()有事物管理
-        return departmentServie.updateTest2(innodb);
+//        return departmentServie.updateTest2(innodb);
         //没有实物的方法a调用本类中的另一个事物方法b,b发生异常不会导致事物回滚，因为AOP代理的是没有事物管理的a()
-//        return updateTest2(innodb);
+        final int count = userInnodbMapper.updateByPrimaryKey(innodb);
+        return updateTest2(innodb);
     }
 
 
     @Transactional(rollbackFor = Exception.class)
     private int updateTest2(UserInnodb innodb) {
         //1.同类中的方法调用 a() 调用 b() b方法抛出异常，会导致a回滚吗
-        final int count = userInnodbMapper.updateByPrimaryKey(innodb);
         int a = 1/0;
-        return count;
+        return a;
     }
 
     public int b(){
